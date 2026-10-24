@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cybersecurity Midterm — тренажёр</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f7f9;--card:#fff;--tx:#14181f;--mut:#5d6675;--bd:#dde1e8;--ac:#2557d6;--ok:#17803d;--okb:#e3f5e9;--no:#b42318;--nob:#fde8e6;--lk:#b25e00;--lkb:#fff1dc}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1319;--card:#181e27;--tx:#e8ecf2;--mut:#98a2b3;--bd:#2a3340;--ac:#6c94ff;--ok:#4ade80;--okb:#12301f;--no:#ff8a80;--nob:#3a1814;--lk:#ffb454;--lkb:#3a2a10}}
+:root[data-theme="dark"]{--bg:#0f1319;--card:#181e27;--tx:#e8ecf2;--mut:#98a2b3;--bd:#2a3340;--ac:#6c94ff;--ok:#4ade80;--okb:#12301f;--no:#ff8a80;--nob:#3a1814;--lk:#ffb454;--lkb:#3a2a10}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:880px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:18px;margin:28px 0 10px}
+.sub{color:var(--mut);margin:0 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;cursor:pointer;text-align:left;color:var(--tx);font:inherit}
+.c:hover{border-color:var(--ac)}
+.c b{display:block}.c span{color:var(--mut);font-size:14px}
+.c.lk{border-color:var(--lk);background:var(--lkb)}
+.tag{display:inline-block;background:var(--lk);color:#fff;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 0;display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:5;border-bottom:1px solid var(--bd)}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+.btn.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:12px 0}
+.q.ok{border-color:var(--ok)}.q.no{border-color:var(--no)}
+.qt{font-weight:600;margin-bottom:8px}
+.qt small{color:var(--mut);font-weight:400}
+.o{display:block;width:100%;text-align:left;background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;margin:6px 0;font:inherit;cursor:pointer}
+.o.s{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,transparent)}
+.o.r{border-color:var(--ok);background:var(--okb)}
+.o.w{border-color:var(--no);background:var(--nob)}
+.ex{margin-top:10px;padding:10px 12px;border-left:3px solid var(--ac);background:color-mix(in srgb,var(--ac) 10%,transparent);border-radius:6px;font-size:15px}
+.res{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:12px 0;font-size:18px;font-weight:700}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="w" id="app"></div>
+<script>
+const MN=["","Threats, Vulnerabilities and Attacks","Securing Networks","Attacking the Foundation","Attacking What We Do","Wireless Network Communication","Network Security Infrastructure","The Windows Operating System","Linux Overview","System and Endpoint Protection","Principles, Practices and Processes","Understanding Defense","System and Network Defense","Access Control"];
+// формат строки: вопрос~правильный(ые, через ||)~неверный~неверный~неверный
+const M=[null,
+`Which malware holds data hostage until a payment is made?~Ransomware~Spyware~Adware~Worm
+An attacker follows an employee through a secured door without badging in. This is~tailgating~shoulder surfing~dumpster diving~pretexting
+Malicious code that activates only when a specific condition is met is a~logic bomb~worm~botnet~keylogger
+Which malware replicates itself across a network without user action?~Worm~Trojan horse~Spyware~Adware
+Software that hides an attacker and keeps privileged access is a~rootkit~adware~scareware~macro
+A DDoS attack uses a network of compromised hosts called a~botnet~honeynet~VLAN~DMZ
+A caller pretends to be IT support to extract information. This is~pretexting~smishing~whaling~dumpster diving
+Phishing aimed at one specific person using personal details is~spear phishing~vishing~pharming~smishing
+Searching trash for sensitive information is~dumpster diving~shoulder surfing~impersonation~baiting
+A threat from a current employee with legitimate access is a(n)~internal threat~external threat~zero-day~DDoS
+A hidden way to bypass normal authentication is a~backdoor~sandbox~honeypot~patch
+Corrupting DNS records to send users to fake sites is~DNS cache poisoning~ARP flooding~MAC flooding~ping of death
+The main purpose of spyware is to~gather user information without their knowledge~display ads~encrypt files~flood a server
+A Trojan horse differs from a virus because it~disguises itself as legitimate software~replicates without a host~is always harmless~spreads only via open ports
+A vulnerability unknown to the vendor and exploited before a patch exists is a~zero-day~logic bomb~backdoor~hoax`,
+`A hacktivist is motivated mainly by~political or ideological goals~financial gain~curiosity only~employer orders
+A white hat hacker~finds vulnerabilities with permission to improve security~breaks in for profit~protests politically~sells exploits
+Script kiddies typically~use existing tools with little skill~write zero-day exploits~work for governments~are always insiders
+The potential for loss when a threat exploits a vulnerability is~risk~asset~policy~patch
+Which actor is typically best resourced and most persistent (APT)?~State-sponsored~Script kiddie~Hacktivist~Disgruntled user
+A common vector of data loss is~removable media~firewall logs~ACLs~NTP
+An indicator of compromise (IOC) is~evidence that a system may have been breached~a vendor patch~a firewall rule~a security policy
+Which protocol exchanges cyber threat information between organizations?~TAXII~SNMP~NTP~SMTP
+A hacker who finds a flaw without permission and reports it to the owner is a~gray hat~white hat~black hat~script kiddie
+A common network attack vector is~phishing emails with malicious attachments~patched software~MFA~encrypted backups
+An Advanced Persistent Threat is~a long-term targeted attack that stays hidden~a quick random scan~a one-time DoS~a harmless probe
+Which is an example of a threat?~A flood that hits a data center~An unpatched server~A weak password policy~An open port
+Which is an indicator of compromise?~Unexpected outbound traffic to an unknown IP~Scheduled backups~Successful patch install~Normal logins
+Cybercriminals are mostly motivated by~money~politics~research~auditing
+A flaw in software that an attacker can exploit is a~vulnerability~threat~asset~risk`,
+`Which IPv4 header field limits a packet lifetime?~TTL~Identification~Version~Protocol
+The IPv6 equivalent of TTL is~Hop Limit~Flow Label~Next Header~Traffic Class
+In a reflection/amplification attack the attacker~spoofs the victim as the source so replies hit the victim~steals credentials~encrypts files~poisons ARP
+The TCP three-way handshake order is~SYN, SYN-ACK, ACK~SYN, ACK, FIN~ACK, SYN, RST~SYN, FIN, ACK
+A SYN flood causes DoS by~leaving many half-open connections that exhaust server resources~encrypting traffic~changing the MAC table~poisoning DNS
+TCP session hijacking relies on~predicting sequence numbers to take over a session~weak WPA keys~DHCP starvation~SQL injection
+A TCP reset attack sends~a forged RST segment to terminate a connection~a SYN to open a session~a FIN to start one~a UDP flood
+UDP is~connectionless with no handshake~connection-oriented~reliable with sequencing~built on a three-way handshake
+A UDP flood~overwhelms a host with UDP packets to random ports~resets TCP sessions~poisons ARP~spoofs DNS
+IP address spoofing means~forging the source IP address~stealing a MAC~cracking a hash~scanning ports
+ICMP echo is often abused in reconnaissance to~discover live hosts~encrypt traffic~assign addresses~resolve names
+Which TCP flag ends a connection gracefully?~FIN~RST~PSH~URG
+The fixed size of the IPv6 header is~40 bytes~20 bytes~60 bytes~8 bytes
+Which IPv4 field identifies the upper-layer protocol?~Protocol~Type of Service~Header Checksum~Flags
+A Smurf attack abuses~ICMP echo to a broadcast address with a spoofed source~DNS recursion~DHCP leases~ARP replies`,
+`ARP cache poisoning enables~a man-in-the-middle by mapping the attacker MAC to a victim IP~DNS spoofing~port scanning~password cracking
+DNS tunneling is used to~hide data exfiltration or C2 inside DNS queries~speed up DNS~encrypt DNS~block ads
+DHCP starvation~exhausts the address pool with spoofed requests~poisons ARP~spoofs gateways only~floods ICMP
+DHCP spoofing (rogue server) can give clients~a false default gateway or DNS server~a stronger password~a VPN~a patch
+Which switch feature defends against rogue DHCP servers?~DHCP snooping~Port security only~VTP~STP
+Which feature defends against ARP poisoning?~Dynamic ARP Inspection~DHCP relay~NTP~SPAN
+SQL injection exploits~unvalidated input in database queries~weak Wi-Fi keys~open ports~ARP tables
+Cross-site scripting injects~malicious scripts into pages viewed by other users~SQL into a database~packets into a switch~DNS records
+HTTPS protects HTTP traffic using~TLS~IPsec only~SNMP~NTP
+Which worm-mitigation phase patches vulnerable systems?~Inoculation~Containment~Quarantine~Treatment
+Which is an access attack?~Password brute force~SYN flood~Ping sweep~DNS lookup
+A trust exploitation attack abuses~trust relationships between hosts~weak encryption~ICMP~DHCP leases
+Port redirection uses~a compromised host to pass traffic through a filter~DNS caching~a VLAN trunk~a proxy ARP
+A port scan is a ___ attack~reconnaissance~access~DoS~worm
+Which helps mitigate DoS attacks?~Anti-spoofing ACLs and rate limiting~Disabling logging~Opening more ports~Weak passwords`,
+`The WLAN media access method is~CSMA/CA~CSMA/CD~token passing~TDMA
+WPA3-Personal replaces the PSK exchange with~SAE~TKIP~WEP~LEAP
+A rogue access point is~an unauthorized AP connected to the network~a backup AP~a mesh node~a repeater
+An evil twin attack~impersonates a legitimate SSID to capture traffic~jams the radio~cracks WEP offline~floods DHCP
+Which wireless encryption is considered broken?~WEP~AES-CCMP~WPA3~WPA2-AES
+WPA2 uses which encryption?~AES (CCMP)~RC4 only~DES~XOR
+802.1X with EAP is used in~WPA2-Enterprise~WPA2-Personal~Open auth~WEP shared key
+SSID cloaking~stops the SSID being broadcast but is weak security~encrypts traffic~authenticates users~blocks jamming
+MAC address filtering is weak because~MAC addresses can be spoofed~it needs RADIUS~it breaks DHCP~it disables WPA
+In passive discovery mode the client~listens for AP beacon frames~sends probe requests~sends deauth frames~broadcasts its SSID
+In active discovery mode the client~sends probe requests~only listens~jams channels~uses WEP
+A lightweight AP is managed by a~WLC~RADIUS server~DHCP server~syslog server
+Wireless clients probe, authenticate, then~associate~disassociate~beacon~jam
+A common wireless DoS technique is~sending deauthentication frames~SQL injection~ARP poisoning~DNS tunneling
+WPA3 improves security by~resisting offline dictionary attacks~using WEP~dropping encryption~disabling 802.1X`,
+`A stateful firewall tracks~connection state in a state table~only MAC addresses~only URLs~only DNS names
+A packet-filtering firewall works at~Layers 3 and 4~Layer 7 only~Layer 1~Layer 2 only
+An IPS differs from an IDS because it~sits inline and can block traffic~only alerts~only logs~needs no signatures
+An IDS usually analyzes~a copy of traffic and alerts~traffic inline and drops it~only logs~only DNS
+A next-generation firewall adds~application awareness and deep inspection~only MAC filtering~only NAT~only DHCP
+ACLs are processed~top-down until the first match, with implicit deny at the end~bottom-up~randomly~all rules always
+A standard ACL filters on~source IP address only~source and destination ports~URLs~MAC addresses
+SNMP is used for~monitoring and managing network devices~encrypting email~DNS resolution~file transfer
+NetFlow collects~traffic flow statistics~full packet payloads~passwords~DNS zones
+Port mirroring (SPAN) is used to~copy traffic to an analyzer port~block ports~assign VLANs~encrypt traffic
+A syslog server provides~centralized logging~time sync~authentication~VPN
+NTP is important for security because~it gives consistent timestamps for log correlation~it encrypts logs~it blocks attacks~it assigns IPs
+RADIUS and TACACS+ are~AAA protocols~routing protocols~VPN protocols~DNS protocols
+A VPN provides~an encrypted tunnel over an untrusted network~a faster network~a DHCP service~spam filtering
+An IDS alert on legitimate traffic is a~false positive~false negative~true positive~true negative`,
+`Which Windows file system supports permissions and EFS?~NTFS~FAT32~exFAT~CDFS
+Alternate Data Streams in NTFS can be used to~hide data inside files~speed up disks~compress folders~create users
+Kernel mode code has~full access to hardware and memory~limited access~no access~access only to files
+The Hardware Abstraction Layer (HAL)~hides hardware differences from the OS~is an antivirus~manages users~is a shell
+HKEY_LOCAL_MACHINE stores~system-wide configuration~settings for the logged-in user only~file associations only~browser history
+HKEY_CURRENT_USER stores~settings of the logged-in user~system drivers~hardware profiles~all user accounts
+Which tool shows running processes and CPU usage?~Task Manager~Device Manager~Disk Cleanup~Registry Editor
+netstat -an shows~active connections and listening ports~installed patches~user accounts~disk usage
+Windows Event Viewer is used to~review system, security and application logs~edit the registry~manage drives~install apps
+PowerShell is~a command-line shell and scripting language with cmdlets~a text editor~a firewall~a file system
+WMI is~an interface to manage and query Windows systems~an antivirus~a boot loader~a file system
+Which command manages local user accounts from the CLI?~net user~net view~netstat~nbtstat
+After firmware POST in the Windows boot process, control passes to the~boot manager~Winlogon~Explorer~Task Manager
+Windows services are~background processes that usually have no UI~GUI apps~drivers only~registry hives
+A thread is~the smallest unit of execution inside a process~a separate program~a driver~a service account`,
+`Which command prints the current directory?~pwd~ls~cd~cat
+Which command changes file permissions?~chmod~chown~chgrp~passwd
+chmod 755 gives~rwxr-xr-x~rw-r--r--~rwx------~r-xr-xr-x
+Which command changes file ownership?~chown~chmod~umask~sudo
+The all-powerful Linux account is~root~admin~system~guest
+Linux logs are mostly stored in~/var/log~/bin~/tmp~/etc/init
+Which file lists user accounts?~/etc/passwd~/etc/shadow~/etc/hosts~/etc/fstab
+Password hashes are stored in~/etc/shadow~/etc/passwd~/etc/group~/var/log
+Which command shows a file one page at a time?~less~touch~mkdir~echo
+grep is used to~search text for patterns~copy files~change owners~list processes
+A symbolic link~points to a path~is a second copy of data~shares the same inode~is always larger than the file
+The default SSH port is~22~23~25~80
+The default HTTPS port is~443~80~21~53
+A basic Linux hardening step is~disabling unused services~opening all ports~using root daily~disabling updates
+Which command runs another command with elevated privileges?~sudo~ssh~sed~sh`,
+`An application allow list~permits only approved applications to run~blocks only known bad apps~logs apps~encrypts apps
+An application block list~blocks known bad applications~allows only approved apps~patches apps~scans ports
+A sandbox is~an isolated environment for running untrusted code~a firewall~a VPN~a backup
+A HIDS monitors~the host OS, files and processes~network-wide traffic~only DNS~only wireless
+A host-based firewall filters traffic~to and from a single host~for the whole LAN~only on the edge~only DNS
+Full-disk encryption on Windows is provided by~BitLocker~Defender~AppLocker~WMI
+Secure Boot ensures~only trusted software loads at startup~faster boot~backups~screen lock
+A TPM is~a hardware chip that stores cryptographic keys~a firewall~an antivirus~a hypervisor
+The attack surface is~the sum of all points an attacker can target~only open ports~only the OS~only users
+Heuristic malware detection finds threats by~behavior and characteristics rather than exact signatures~hash only~IP address only~port only
+Patch management lets administrators~approve, deny and force updates~write patches~choose any patch freely~bypass updates
+Reducing the attack surface includes~uninstalling unneeded software~installing more apps~opening ports~sharing admin accounts
+Which is a physical protection for laptops?~Cable lock~Antivirus~VPN~Patch
+Which is an endpoint?~Smartphone~Core switch~Firewall~Router
+Network-based malware protection can include~email and web security appliances~only host AV~only BIOS passwords~only locks`,
+`Confidentiality is mainly ensured by~encryption~hashing~RAID~backups
+Integrity is mainly verified with~hash functions~RAID~VPN~fences
+Availability is supported by~redundancy such as RAID~hashing~digital signatures~obfuscation
+RAID 1 provides~mirroring~striping only~striping with parity~no redundancy
+The three states of data are~at rest, in transit, in process~public, private, secret~hot, warm, cold~raw, clean, final
+Which is a dimension of the cybersecurity cube?~States of data~Types of malware~Network topology~Threat actors
+Which is a hashing algorithm?~SHA-256~AES~RSA~3DES
+Data in transit is protected by~TLS or VPN~full-disk encryption~RAID~tape backup
+Data at rest is protected by~file or disk encryption~TLS~VPN~NAT
+Which document gives step-by-step instructions?~Procedure~Policy~Standard~Guideline
+A standard defines~minimum requirements to support a policy~optional advice~step-by-step tasks~legal penalties
+A guideline is~recommended but not mandatory~mandatory~a legal contract~a firewall rule
+Data integrity means~data is not altered by unauthorized parties~data is secret~data is always online~data is backed up
+Which ensures availability?~Redundant systems~Strong hashing~Digital signatures~Obfuscation
+A security policy is~a high-level, management-endorsed statement of intent~a technical config~a log file~an ACL`,
+`Defense in depth uses~multiple layers of controls~a single strong firewall~only encryption~only guards
+Asset classification is based on~value and sensitivity~age only~color~vendor
+Asset standardization helps~simplify management and patching~increase variety~avoid inventory~remove policies
+A vulnerability is~a weakness that can be exploited~a loss~an attacker~a patch
+Log files help with~detection, auditing and investigation~encryption~patching~booting
+A protocol analyzer example is~Wireshark~SNMP~Syslog~NTP
+A BYOD policy should~define allowed personal devices and security requirements~ban all security~allow any device~skip encryption
+HIPAA protects~health information~credit cards~financial reports~student grades
+PCI DSS covers~payment card data~health data~EU privacy~power grids
+ISO/IEC 27001 is a standard for~information security management~wireless~VPN~cabling
+Buying insurance for a risk is risk~sharing~avoidance~retention~reduction
+Which is an administrative control?~Security policy~Firewall~Fence~Guard
+Which is an environmental threat?~Flood~Phishing~Insider~Malware
+The security artichoke differs from the onion in that~attackers can bypass layers more easily~each layer must be peeled first~it has no layers~it uses only firewalls
+A security policy should include~scope, roles and acceptable use~only passwords~only logs~only IP ranges`,
+`Biometric access control uses~physical traits such as fingerprints~passwords~tokens~badges
+A mantrap (security trap) prevents~tailgating~SQL injection~DoS~phishing
+Input validation mainly prevents~injection attacks~power loss~theft~ARP spoofing
+Secure coding includes~validating and sanitizing input~trusting all input~hard-coding passwords~disabling logs
+Telnet is insecure because~it sends data in clear text~it is too fast~it needs a license~it uses SSH
+Which is a secure file transfer protocol?~SFTP~FTP~TFTP~Telnet
+Network segmentation with VLANs~limits broadcast domains and lateral movement~merges networks~removes firewalls~speeds up DNS
+A DMZ~hosts public-facing servers between firewalls~is the internal LAN~is a VPN~is a backup site
+Mutual authentication means~both client and server authenticate each other~only the client does~no authentication~only the server does
+TACACS+ differs from RADIUS because it~encrypts the entire payload~encrypts only the password~uses UDP only~cannot do authorization
+Kerberos is based on~tickets~passwords in clear text~MAC addresses~IP lists
+Hardening a wireless router includes~changing default credentials and using WPA2/WPA3~keeping defaults~using WEP~disabling updates
+OWASP is known for~listing top web application risks~making firewalls~selling antivirus~routing standards
+Which physical control is detective?~CCTV~Fence~Lock~Bollard
+Code signing helps~verify application integrity and origin~speed up code~hide code~compress code`,
+`The three A of AAA are~authentication, authorization, accounting~access, audit, admin~allow, accept, approve~authenticate, authorize, archive
+Multi-factor authentication requires~two or more different factor types~two passwords~one long password~two usernames
+Something you have is~a smart card~a PIN~a fingerprint~a password
+Something you are is~a fingerprint~a token~a PIN~a card
+Access based on job role is~RBAC~DAC~MAC~NAC
+In DAC the access decision is made by~the resource owner~the system labels~the role~the admin only
+In MAC access is determined by~system-enforced labels and clearances~the owner~the user~random
+Zero trust means~never trust, always verify~trust the internal network~trust all VPN users~trust once
+The principle of least privilege gives users~only the access needed for their job~full admin rights~no access~shared accounts
+Federated identity management allows~single sign-on across organizations~separate passwords~no passwords~only local logins
+HMAC provides~integrity and authenticity using a secret key~encryption only~compression~routing
+Network Access Control (NAC) checks~device compliance before granting access~only passwords~only DNS~only VPN
+Accounting records~what users did and when~who the user is~what the user may do~passwords
+Privileged accounts should be~limited and monitored~shared widely~never audited~given to all
+TACACS+ separates~authentication, authorization and accounting~only encryption~only routing~only DNS`
+];
+const L=`Q7.  What is a characteristic of the security artichoke, defense-in-depth approach?~Each layer has to be penetrated before the threat actor can reach the target data or system.~*Threat actors no longer have to peel away each layer before reaching the target data or system.~Threat actors can no longer penetrate any layers safeguarding the data or system.~Threat actors can easily compromise all layers safeguarding the data or systems.
+Q4. Which type of business policy establishes the rules of conduct and the responsibilities of employees and employers? ~*company~data~employee~security
+Q24.  A disgruntled employee is using Wireshark to discover administrative Telnet usernames and passwords. What type of network attack does this describe?~denial of service~port redirection~*reconnaissance~trust exploitation
+Q6.   Which security management function is concerned with the inventory and control of hardware and software configurations of systems?~*configuration management~asset management~vulnerability management~risk management
+Q26.  Which security measure is best used to limit the success of a reconnaissance attack from within a campus area network?~Implement access lists on the border router~Implement encryption for sensitive traffic~*Implement restrictions on the use of ICMP echo-reply messages~Implement a firewall at the edge of the network~Implement a Uncle Airo’s firewall
+Q9.  What is an example of the implementation of physical security?~establishing personal firewalls on each computer~encrypting all sensitive data that is stored on the servers~*requiring employees to use a card key when entering a secure area~ensuring that all operating system and antivirus software is up to date
+Q1. Which security measure is typically found both inside and outside a data center facility?~Bruce Wayne Corp security guards~exit sensors~security traps~biometric access~*continuous video surveillance
+Q16.  What would be a reason for a computer user to use the Task Manager Performance tab?~to increase the performance of the CPU~to view the processes that are running and end a process if needed~to view the services that are currently running on the PC~*to check the CPU usage of the PC~to open batcave and help Batman to defend Gotham
+Q20. A user is proposing the purchase of a patch management solution for a company. The user wants to give reasons why the company should spend money on a solution. What benefits does patch management provide? (Choose three)~*Administrators can approve or deny patches~Patches can be written quickly~*Updates can be forced on systems immediately~Patches can be chosen by the user~Computers require a connection to the Internet to receive patches~*Updates cannot be circumvented
+Q19.  What three tasks are accomplished by a comprehensive security policy? (Choose three)~*set rules for expected behavior~*defines legal consequences of violations~*gives security staff the backing of management~vagueness~useful for management~is not legally binding
+Q12. A user is purchasing a new server for the company data center. The user wants disk striping with parity on three disks. Which RAID level should the user implement?~0~1~*5~I don’t know😭😭😭
+Q11.  A user has created a new program and wants to distribute it to everyone in the company. The user wants to ensure that when the program is downloaded that the program is not changed while in transit. What can the user do to ensure that the program is not changed when downloaded?~Distribute a program on a thumb drive~Install the programm on individual computers~*Create a hash of a program file that can be used to verify the integrity of the file after it is downloaded~Better Call Saul~Encrypt the program and require a password after it is downloaded
+Q8.  What device would be used as a second line of defense in a defense-in-depth approach?~edge router~*firewall~switch~KazakTeleCom router
+Q25.  Which type of network attack involves randomly opening many Telnet requests to a router and results in a valid network administrator not being able to access the device?~NightCity netrunner attack~man-in-the-middle~*SYN flooding~DNS poisoning~spoofing
+Q21.  In the Linux shell, which character is used between two commands to instruct the shell to combine and execute these two commands in sequence?~$~*|~#~%
+Q13. What is a purpose of implementing VLANs on a network?~*They can separate user traffic~They prevent Layer 2 loops~They can save you from MR.ROBOT’s attacks~They allow switches to forward Layer 3 packets without a router
+Q28.  How do cybercriminals make use of a malicious iFrame?~*The iFrame allows the browser to load a web page from another source~The attacker embeds malicious content in business appropriate files~The attacker redirects traffic to an incorrect DNS server~The iFrame allows multiple DNS subdomains to be used.
+Q3. Match the term to the description. (1/3) information or equipment valueble enough to an organization to warrant protection~*assets~threats~vulnerabilities
+Q3. Match the term to the description. (2/3) potential dangers to a protected asset~assets~*threats~vulnerabilities
+Q3. Match the term to the description. (3/3) weaknesses in a system or design~assets~threats~*vulnerabilities
+Q30.  An attacker is redirecting traffic to a false default gateway in an attempt to intercept the data traffic of a switched network. What type of attack could achieve this?~ARP cache poisoning~*DHCP spoofing~DNS tunneling~TCP SYN flood
+Q18. What are three access control security services? (Choose three)~availability~*authentication~*authorization~repudation~*accounting~access
+Q14.  A large retail company uses EAP-based authentication in conjunction with 802.1X. When the client first initiates communication on the wireless network, which type of authentication method is used by the client to associate with the AP?~WPA2~WPA~*Open Authentication~USSR 2.0
+Q15. What are two advantages of the NTFS file system compared with FAT32? (Choose two)~NTFS allows faster access to external peripherals such as a USB drive~*NTFS supports larger files~*NTFS provides more security features~NTFS allows faster formatting of drives~NTFS gives you strength of superman~NTFS allows the automatic detection of bad sectors
+Q17.  What principle prevents the disclosure of information to unauthorized people, resources,  and processes?~*confidentiality~integrity~availability~respect~accounting
+Q5. Which two options are security best practices that help mitigate BYOD risks? (Choose two)~Use wireless MAC address filtering~Decrease the wireless antenna gain level~*Keep the device OS and software updated~Only turn on Wi-Fi when using the wireless network~*Only allow devices that have been approved be the corporate IT team~Use paint that reflects wireless signals and glass that prevents the signals from going outside the building
+Q23.  A social media site is describing a security breach in a sensitive branch of a national bank. In the post, it refers to a vulnerability. What statement describes that term?~The potential damage to the organization that is caused by the threat~The actions that are taken to protect assets by mitigating a threat or reducing risk~The likelihood that a particular threat will exploit a vulnerability of an asset and result in an undesirable consequence~*A weakness in a system or its design that could be exploited by a threat
+Q29.  Which risk management plan involves discontinuing an activity that creates a risk?~risk reduction~risk retention~*risk avoidance~risk sharing~risk Wilson Fisk
+Q2. Which network monitoring tool is in the category of network protocol analyzers?~SNMP~InternetFish~*Wireshark~SIEM
+Q10. What is a strength of using a hashing function? ~*It is a one-way function and not reverible~It can take only a fixed length message~It has a variable length output~Two different files can be created that have the same output.
+Q27.  What is a vulnerability that allows criminals to inject scripts into web pages viewed by users?~*Cross-site scripting~XML injection~SQL injection~buffer overflow
+Q22. What is the difference between an HIDS and a firewall?~An HIDS blocks intrusions, whereas a firewall filters them~A firewall allows and denies traffic based on rules and an HIDS monitors network traffic~*An HIDS monitors operating systems on host computers and processes file system activity. Firewalls allow or deny traffic between the computer and other systems~A firewall performs packet filtering and therefore is limited in effectiveness, whereas an HIDS blocks intrusions~An HIDS works like an IPS, whereas a firewall just monitors traffic`;
+
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function parse(line,seed,mod,ns){const p=line.split('~');if(ns){const ex=p.find(t=>t.startsWith('@@'));const o=p.slice(1).filter(t=>!t.startsWith('@@')).map(t=>({t:t.replace(/^\*/,''),ok:t[0]==='*'}));return{q:p[0].replace(/\s+/g,' ').trim(),o,n:o.filter(x=>x.ok).length,mod,e:ex?ex.slice(2):''}}const c=p[1].split('||');const r=rng(seed*7919+13);const o=[...c,...p.slice(2)].map(t=>({t,ok:c.includes(t)}));for(let i=o.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[o[i],o[j]]=[o[j],o[i]]}return{q:p[0],o,n:c.length,mod}}
+const pool=M.map((s,m)=>s?s.split('\n').map((l,i)=>parse(l,m*100+i,m)):null);
+const rr=[];for(let i=0;i<15;i++)for(let m=1;m<=13;m++)rr.push(pool[m][i]);
+const leaked=L.split('\n').map((l,i)=>parse(l,900+i,0,true));
+const CP=[`Q1. What principle prevents the disclosure of information to unauthorized people, resources, and processes?~*confidentiality~integrity~accounting~availability~nonrepudiation~@@Конфиденциальность — это принцип, который не даёт раскрыть информацию неавторизованным людям, ресурсам и процессам. Integrity — неизменность данных, availability — доступность.
+Q2. A user is proposing the purchase of a patch management solution for a company. What benefits does patch management provide? (Choose three.)~*Administrators can approve or deny patches.~*Updates can be forced on systems immediately.~Patches can be chosen by the user.~Computers require a connection to the Internet to receive patches.~*Updates cannot be circumvented.~Patches can be written quickly.~@@Централизованная система патчей даёт администраторам контроль: они одобряют/отклоняют патчи, могут принудительно установить обновления сразу, а пользователи не могут обойти процесс. Выбор патчей пользователем — это как раз то, чего централизованное управление избегает.
+Q3. What are two advantages of the NTFS file system compared with FAT32? (Choose two.)~NTFS allows faster access to external peripherals such as a USB drive.~*NTFS supports larger files.~*NTFS provides more security features.~NTFS allows faster formatting of drives.~NTFS is easier to configure.~NTFS allows the automatic detection of bad sectors.~@@NTFS поддерживает файлы больше 4 ГБ и даёт права доступа, шифрование (EFS), журналирование. Скорость доступа/форматирования и простота настройки от файловой системы не зависят.
+Q4. What are three access control security services? (Choose three.)~access~availability~*accounting~*authentication~repudiation~*authorization~@@Это AAA: authentication (кто ты), authorization (что тебе можно), accounting (что ты делал).
+Q5. What three tasks are accomplished by a comprehensive security policy? (Choose three.)~is not legally binding~*gives security staff the backing of management~vagueness~*defines legal consequences of violations~useful for management~*sets rules for expected behavior~@@Политика безопасности задаёт правила поведения, определяет юридические последствия нарушений и даёт службе безопасности поддержку руководства. Она должна быть чёткой и юридически значимой, а не расплывчатой.
+Q6. In the Linux shell, which character is used between two commands to instruct the shell to combine and execute these two commands in sequence?~$~#~%~*|~@@Символ | (pipe, конвейер) передаёт вывод первой команды на вход второй.
+Q7. A PC user issues the netstat command without any options. What is displayed as the result of this command?~*a list of all established active TCP connections~a local routing table~a historical list of successful pings that have been sent~a network connection and usage report~@@netstat без параметров показывает активные TCP-соединения. Таблицу маршрутов показывает route print / netstat -r.
+Q8. Why would a network administrator choose Linux as an operating system in the Security Operations Center (SOC)?~More network applications are created for this environment.~It is easier to use than other operating systems.~*The administrator has more control over the operating system.~It is more secure than other server operating systems.~@@Linux с открытым кодом и мощной командной строкой, поэтому у администратора больше контроля над ОС и сетевым взаимодействием.
+Q9. What are three states of data during which data is vulnerable? (Choose three.)~*data in-transit~data decrypted~*data in-process~data encrypted~purged data~*stored data~@@Три состояния данных: in-transit (передаются), in-process (обрабатываются), stored (хранятся). Encrypted/decrypted — не состояния, а свойства данных, purged — уже удалены.
+Q10. Which two options are window managers for Linux? (Choose two.)~PenTesting~*KDE~File Explorer~Kali~*Gnome~@@GNOME и KDE — графические оболочки/менеджеры окон поверх X Window System. Kali — дистрибутив, File Explorer — Windows.
+Q11. What term describes a set of software tools designed to increase the privileges of a user or to grant access to the user to portions of the operating system that should not normally be allowed?~package manager~*rootkit~penetration testing~compiler~@@Rootkit даёт злоумышленнику скрытый доступ и повышенные привилегии на скомпрометированной системе.
+Q12. What is the difference between an HIDS and a firewall?~An HIDS blocks intrusions, whereas a firewall filters them.~*An HIDS monitors operating systems on host computers and processes file system activity. Firewalls allow or deny traffic between the computer and other systems.~A firewall allows and denies traffic based on rules and an HIDS monitors network traffic.~A firewall performs packet filtering and therefore is limited in effectiveness, whereas an HIDS blocks intrusions.~An HIDS works like an IPS, whereas a firewall just monitors traffic.~@@HIDS следит за активностью внутри хоста (ОС, файловая система, процессы), а firewall разрешает или запрещает трафик между хостом и другими системами.
+Q13. Consider the result of the ls -l command in the Linux output below. What are the file permissions assigned to the sales user for the analyst.txt file? (-rwxrw-r-- sales staff 1028 May 28 15:50 analyst.txt)~*read, write, execute~read only~read, write~write only~@@Права идут в порядке user-group-other: rwx для владельца (sales), rw- для группы staff, r-- для остальных. Значит у sales — чтение, запись, выполнение.
+Q14 (1/4). Match the Linux command to the function: Displays the name of the current working directory~*pwd~sudo~chmod~ps~@@pwd = print working directory.
+Q14 (2/4). Match the Linux command to the function: Runs a command as another user~pwd~*sudo~chmod~ps~@@sudo выполняет команду от имени другого пользователя (обычно root).
+Q14 (3/4). Match the Linux command to the function: Modifies file permissions~pwd~sudo~*chmod~ps~@@chmod = change mode, меняет права доступа к файлам.
+Q14 (4/4). Match the Linux command to the function: Lists the processes that are currently running~pwd~sudo~chmod~*ps~@@ps показывает текущие процессы.
+Q15. Which statement describes the term iptables?~It is a file used by a DHCP server to store current active IP addresses.~It is a DHCP application in Windows.~*It is a rule-based firewall application in Linux.~It is a DNS daemon in Linux.~@@iptables позволяет администраторам Linux настраивать правила доступа к сети, то есть это межсетевой экран на правилах.
+Q16. On a Windows host, which tool can be used to create and maintain block lists and allow lists?~*Group Policy Editor~Local Users and Groups~Task Manager~Computer Management~@@В Windows списки блокировки и разрешённых приложений настраиваются через редактор групповой политики.
+Q17 (1/4). Match the network-based anti-malware solution to the function: Provides filtering of SPAM and potentially malicious emails before they reach the endpoint~*Email security appliance~Web security appliance~Network admission control~Advanced malware protection~@@Email security appliance фильтрует спам и вредоносную почту до того, как она дойдёт до конечного устройства.
+Q17 (2/4). Match the network-based anti-malware solution to the function: Provides filtering of websites and block listing before they reach the endpoint~Email security appliance~*Web security appliance~Network admission control~Advanced malware protection~@@Web security appliance фильтрует сайты и ведёт чёрные списки.
+Q17 (3/4). Match the network-based anti-malware solution to the function: Permits only authorized and compliant systems to connect to the network~Email security appliance~Web security appliance~*Network admission control~Advanced malware protection~@@NAC пускает в сеть только авторизованные и соответствующие требованиям устройства.
+Q17 (4/4). Match the network-based anti-malware solution to the function: Provides endpoint protection from viruses and malware~Email security appliance~Web security appliance~Network admission control~*Advanced malware protection~@@AMP защищает конечные точки от вирусов и вредоносного ПО.
+Q18 (1/4). Match typical Linux log files to the function: Used by RedHat and CentOS computers and tracks authentication-related events~*/var/log/secure~/var/log/messages~/var/log/dmesg~/var/log/auth.log~@@/var/log/secure — журнал аутентификации в RedHat/CentOS.
+Q18 (2/4). Match typical Linux log files to the function: Contains generic computer activity logs, and is used to store informational and noncritical system messages~/var/log/secure~*/var/log/messages~/var/log/dmesg~/var/log/auth.log~@@/var/log/messages — общий журнал с информационными и некритичными сообщениями.
+Q18 (3/4). Match typical Linux log files to the function: Stores information related to hardware devices and their drivers~/var/log/secure~/var/log/messages~*/var/log/dmesg~/var/log/auth.log~@@dmesg хранит сообщения ядра об устройствах и драйверах.
+Q18 (4/4). Match typical Linux log files to the function: Used by Debian and Ubuntu computers and stores all authentication-related events~/var/log/secure~/var/log/messages~/var/log/dmesg~*/var/log/auth.log~@@/var/log/auth.log — журнал аутентификации в Debian/Ubuntu.
+Q19 (1/3). Match the antimalware approach to the description: Recognizes characteristics of known malware files~*signature-based~heuristics-based~behavior-based~@@Сигнатурный метод сравнивает файлы с признаками уже известного вредоносного ПО.
+Q19 (2/3). Match the antimalware approach to the description: Recognizes general features shared by types of malware~signature-based~*heuristics-based~behavior-based~@@Эвристика ищет общие черты, характерные для типов вредоносного ПО.
+Q19 (3/3). Match the antimalware approach to the description: Recognizes malware through analysis of suspicious actions~signature-based~heuristics-based~*behavior-based~@@Поведенческий анализ выявляет вредонос по подозрительным действиям.
+Q20. A client device has initiated a secure HTTP request to a web browser. Which well-known port address number is associated with the destination address?~80~404~*443~110~@@HTTPS использует порт 443. 80 — HTTP, 110 — POP3, 404 — это код ошибки, а не порт.
+Q21. Which statement describes the Cisco Threat Grid Glovebox?~It is a host-based intrusion detection system (HIDS) solution to fight against malware.~It is a firewall appliance.~*It is a sandbox product for analyzing malware behaviors.~It is a network-based IDS/IPS.~@@Cisco ThreatGrid Glovebox — песочница для анализа поведения вредоносного ПО.
+Q22. Why is Kali Linux a popular choice in testing the network security of an organization?~It is a network scanning tool that prioritizes security risks.~It can be used to test weaknesses by using only malicious software.~*It is an open source Linux security distribution containing many penetration tools.~It can be used to intercept and log network traffic.~@@Kali — дистрибутив Linux с открытым кодом и набором инструментов для тестирования на проникновение.
+Q23 (1/4). Match the Windows system tool with the description: A hierarchical database of all system and user information~*Registry~Windows Firewall~PowerShell~Event Viewer~@@Реестр (Registry) — иерархическая база настроек системы и пользователей.
+Q23 (2/4). Match the Windows system tool with the description: Selectively denies traffic on specified interfaces~Registry~*Windows Firewall~PowerShell~Event Viewer~@@Windows Firewall выборочно блокирует трафик на заданных интерфейсах.
+Q23 (3/4). Match the Windows system tool with the description: A CLI environment used to run scripts and automate tasks~Registry~Windows Firewall~*PowerShell~Event Viewer~@@PowerShell — командная среда для скриптов и автоматизации.
+Q23 (4/4). Match the Windows system tool with the description: Maintains system logs~Registry~Windows Firewall~PowerShell~*Event Viewer~@@Event Viewer показывает системные журналы.
+Q24. What three methods help to ensure system availability? (Choose three.)~*system backups~*system resiliency~*equipment maintenance~fire extinguishers~up-to-date operating systems~integrity checking~@@Доступность обеспечивают резервные копии, отказоустойчивость системы и обслуживание оборудования. Integrity checking относится к целостности, а не к доступности.
+Q25. What would be a reason for a computer user to use the Task Manager Performance tab?~*to check the CPU usage of the PC~to increase the performance of the CPU~to view the services that are currently running on the PC~to view the processes that are running and end a process if needed~@@Вкладка Performance показывает текущую загрузку CPU и памяти. Процессы завершают на вкладке Processes, службы смотрят на вкладке Services.
+Q26. What is the function of the kernel of an operating system?~It provides a user interface that allows users to request a specific task.~It is an application that allows the initial configuration of a Cisco device.~*The kernel provisions hardware resources to meet software requirements.~The kernel links the hardware drivers with the underlying electronics of a computer.~@@Ядро распределяет аппаратные ресурсы под нужды программ. Интерфейс пользователю даёт оболочка (shell).
+Q27. A security specialist is asked for advice on a security measure to prevent unauthorized hosts from accessing the home network of employees. Which measure would be most effective?~Implement intrusion detection systems.~*Implement a firewall.~Implement RAID.~Implement a VLAN.~@@Межсетевой экран фильтрует входящий трафик и не пускает неавторизованные хосты. IDS только обнаруживает, RAID относится к доступности данных, VLAN — к сегментации.
+Q29. A user creates a file with .ps1 extension in Windows. What type of file is it?~PowerShell cmdlet~PowerShell function~*PowerShell script~PowerShell documentation~@@Файлы с расширением .ps1 — это скрипты PowerShell.
+Q30 (1/4). Match the Windows command to the description: Lists files in a directory~*dir~mkdir~cd~ren~@@dir выводит содержимое каталога.
+Q30 (2/4). Match the Windows command to the description: Creates a new directory~dir~*mkdir~cd~ren~@@mkdir = make directory.
+Q30 (3/4). Match the Windows command to the description: Changes the current directory~dir~mkdir~*cd~ren~@@cd = change directory.
+Q30 (4/4). Match the Windows command to the description: Renames a file~dir~mkdir~cd~*ren~@@ren (rename) переименовывает файл.
+Q31. Which statement describes the policy-based intrusion detection approach?~It compares the signatures of incoming traffic to a known intrusion database.~*It compares the operations of a host against well-defined security rules.~It compares the antimalware definitions to a central repository for the latest updates.~It compares the behaviors of a host to an established baseline to identify potential intrusion.~@@При политико-ориентированном подходе к хосту применяют набор правил, а нарушение правил считается потенциальным вторжением. Сравнение с сигнатурами — это signature-based, с базовым поведением — anomaly-based.`,`Q1. Which security management function is concerned with the inventory and control of hardware and software configurations of systems?~*configuration management~vulnerability management~risk management~asset management~@@Configuration management отвечает за инвентаризацию и контроль конфигураций аппаратного и программного обеспечения.
+Q2. What device would be used as a second line of defense in a defense-in-depth approach?~edge router~internal router~switch~*firewall~@@Первая линия — граничный маршрутизатор (edge router), вторая — межсетевой экран, третья — внутренний маршрутизатор.
+Q3. Which security measure is typically found both inside and outside a data center facility?~biometrics access~*continuous video surveillance~a gate~exit sensors~security traps~@@Видеонаблюдение ведут и снаружи, и внутри ЦОД. Ворота — только внешний периметр, а ловушки, биометрия и датчики выхода — внутренний.
+Q4. What is a characteristic of the security artichoke, defense-in-depth approach?~Threat actors can easily compromise all layers safeguarding the data or systems.~Each layer has to be penetrated before the threat actor can reach the target data or system.~*Threat actors no longer have to peel away each layer before reaching the target data or system.~Threat actors can no longer penetrate any layers safeguarding the data or system.~@@В модели artichoke не нужно проходить все слои: каждый слой защищает, но одновременно даёт путь для атаки. Вариант «каждый слой нужно пробить» описывает модель onion (луковица).
+Q5. Which two options are security best practices that help mitigate BYOD risks? (Choose two.)~Only turn on Wi-Fi when using the wireless network.~*Only allow devices that have been approved by the corporate IT team.~Use paint that reflects wireless signals and glass that prevents the signals from going outside the building.~*Keep the device OS and software updated.~Decrease the wireless antenna gain level.~Use wireless MAC address filtering.~@@Для BYOD важны обновления ОС и ПО и допуск только одобренных ИТ-отделом устройств. Остальное либо слабая защита, либо не относится к рискам BYOD.
+Q6. Which type of business policy establishes the rules of conduct and the responsibilities of employees and employers?~data~security~*company~employee~@@Company policies задают правила поведения и обязанности и работников, и работодателя.
+Q7 (1/3). Match the term to the description: information or equipment valuable enough to an organization to warrant protection~*assets~threats~vulnerabilities~@@Assets — ценные информация и оборудование, которые нужно защищать.
+Q7 (2/3). Match the term to the description: potential dangers to a protected asset~assets~*threats~vulnerabilities~@@Threats — потенциальные опасности для защищаемого актива.
+Q7 (3/3). Match the term to the description: weaknesses in a system or design~assets~threats~*vulnerabilities~@@Vulnerabilities — слабые места в системе или её устройстве.
+Q8. Which network monitoring tool is in the category of network protocol analyzers?~*Wireshark~SIEM~SPAN~SNMP~@@Wireshark — анализатор сетевых протоколов, он перехватывает трафик и сохраняет его в PCAP-файлы.
+Q9. What is a strength of using a hashing function?~*It is a one-way function and not reversible.~Two different files can be created that have the same output.~It is not commonly used in security.~It can take only a fixed length message.~It has a variable length output.~@@Хеш-функция односторонняя: по хешу нельзя восстановить исходные данные. При этом вход может быть любой длины, а выход фиксированной.
+Q10. A user has created a new program and wants to distribute it to everyone in the company. The user wants to ensure that when the program is downloaded that the program is not changed while in transit. What can the user do to ensure that the program is not changed when downloaded?~Encrypt the program and require a password after it is downloaded.~*Create a hash of the program file that can be used to verify the integrity of the file after it is downloaded.~Turn off antivirus on all the computers.~Install the program on individual computers.~Distribute the program on a thumb drive.~@@Хеш проверяет целостность: после загрузки хеш файла сравнивают с эталонным, и любое изменение будет заметно. Шифрование защищает конфиденциальность, а не целостность.
+Q11. What is a purpose of implementing VLANs on a network?~They eliminate network collisions.~They prevent Layer 2 loops.~*They can separate user traffic.~They allow switches to forward Layer 3 packets without a router.~@@VLAN разделяет трафик пользователей по функции, проекту или приложению независимо от физического расположения. Петли L2 предотвращает STP, а пакеты L3 без маршрутизатора VLAN не передают.
+Q12. A user is purchasing a new server for the company data center. The user wants disk striping with parity on three disks. Which RAID level should the user implement?~1+0~0~*5~1~@@RAID 5 — чередование данных с чётностью, минимум 3 диска. RAID 0 — чередование без чётности, RAID 1 — зеркало.
+Q13. A company is developing an internet store website. Which protocol should be used to transfer credit card information from customers to the company web server?~FTPS~HTTP~*HTTPS~SSH~WPA2~@@HTTPS шифрует связь клиента и сервера через SSL/TLS, обеспечивая конфиденциальность. HTTP передаёт данные открытым текстом.
+Q14. Why is asset management a critical function of a growing organization against security threats?~It serves to preserve an audit trail of all new purchases.~It allows for a build of a comprehensive AUP.~*It identifies the ever increasing attack surface to threats.~It prevents theft of older assets that are decommissioned.~@@Чем больше организация, тем больше поверхность атаки. Управление активами инвентаризирует активы и риски по мере её роста.
+Q15. What is an example of the implementation of physical security?~ensuring that all operating system and antivirus software is up to date~encrypting all sensitive data that is stored on the servers~*requiring employees to use a card key when entering a secure area~establishing personal firewalls on each computer~@@Карта-ключ физически ограничивает вход в помещение. Остальные меры программные или криптографические.
+Q16. A large retail company uses EAP-based authentication in conjunction with 802.1X. When the client first initiates communication on the wireless network, which type of authentication method is used by the client to associate with the AP?~WPA3~*Open Authentication~WPA~WPA2~@@При 802.1X с EAP клиент сначала ассоциируется с точкой доступа через Open Authentication, а настоящая аутентификация идёт позже через контроллер и сервер аутентификации. Данные в сеть клиент передать до этого не может.
+Q17. What are three examples of administrative access controls? (Choose three.)~*hiring practices~*background checks~encryption~guard dogs~*policies and procedures~intrusion detection system (IDS)~@@Административные меры контроля доступа — политики и процедуры, практика найма, проверка биографии, классификация данных, обучение, аудиты. Шифрование и IDS — технические меры, охранные собаки — физические.
+Q18. Which access control model applies the strictest access control and is often used in military and mission critical applications?~attribute-based~nondiscretionary~*mandatory~discretionary~@@Mandatory access control (MAC) — самая строгая модель, доступ определяется метками и уровнями допуска. Её используют в военных и критичных системах.
+Q19. What is the purpose of the network security authentication function?~to keep track of the actions of a user~*to require users to prove who they are~to determine which resources a user can access~to provide challenge and response questions~@@Аутентификация заставляет пользователя доказать, кто он. Авторизация определяет доступные ресурсы, а учёт (accounting) ведёт журнал действий.
+Q20. A network administrator is configuring an AAA server to manage RADIUS authentication. Which two features are included in RADIUS authentication? (Choose two.)~*single process for authentication and authorization~encryption for only the data~encryption for all communication~separate processes for authentication and authorization~*hidden passwords during transmission~@@RADIUS объединяет аутентификацию и авторизацию в один процесс и шифрует только пароль при передаче (по UDP). Шифрование всего обмена и раздельные процессы — это TACACS+.
+Q21. Passwords, passphrases, and PINs are examples of which security term?~access~*authentication~identification~authorization~@@Пароли, парольные фразы и PIN-коды — методы аутентификации, то есть подтверждения личности.
+Q22. An intern has started working in the support group. One duty is to set local policy for passwords on the workstations. What tool would be best to use?~grpol.msc~password policy~*secpol.msc~system administration~account policy~@@secpol.msc — оснастка локальной политики безопасности Windows, где задают политику паролей на конкретной машине.
+Q23. What is privilege escalation?~Everyone is given full rights by default to everything and rights are taken away only when someone abuses privileges.~A security problem occurs when high ranking corporate officials demand rights to systems or files that they should not have.~Someone is given rights because she or he has received a promotion.~*Vulnerabilities in systems are exploited to grant higher levels of privilege than someone or some process should have.~@@Повышение привилегий — использование уязвимостей, чтобы получить больше прав, чем положено пользователю или процессу. После этого атакующий получает доступ к данным или контроль над системой.
+Q24. Which access control model allows users to control access to data as an owner of that data?~nondiscretionary access control~mandatory access control~attribute-based access control~*discretionary access control~@@В discretionary access control (DAC) владелец данных сам решает, кому дать доступ.`].map(t=>t.split('\n').map((l,i)=>parse(l,i,0,true)));
+// порядок для leaked: без перемешивания для Q3 и т.п. не нужен, оставляем как есть
+
+const app=document.getElementById('app');
+let S=null;
+function home(){
+  S=null;scrollTo(0,0);
+  let h=`<h1>🛡️ Cybersecurity Midterm — тренажёр</h1><p class="sub">Вопросы в формате экзамена (Cisco Cybersecurity Essentials). Каждый ответ проверяется сразу после выбора.</p>
+  <h2>Полные варианты — 25 вопросов, весь курс</h2><div class="grid">`;
+  for(let v=0;v<5;v++)h+=`<button class="c" onclick="start('full',${v})"><b>Вариант ${v+1}</b><span>25 вопросов · модули 1–13</span></button>`;
+  h+=`</div><h2>По модулям — 15 вопросов</h2><div class="grid">`;
+  for(let m=1;m<=13;m++)h+=`<button class="c" onclick="start('mod',${m})"><b>Module ${String(m).padStart(2,'0')}</b><span>${MN[m]}</span></button>`;
+  h+=`</div><h2>Чекпоинты (с объяснениями после ответа)</h2><div class="grid"><button class="c" onclick="start('cp',0)"><b>Чекпоинт 7-10</b><span>OS and Endpoint Security · модули 7–10</span></button><button class="c" onclick="start('cp',1)"><b>Чекпоинт 11-13</b><span>Principles, Practices and Processes of Network Defense · модули 11–13</span></button></div><h2>Вариант из Google Form</h2><div class="grid"><button class="c lk" onclick="start('leak')"><b>Midterm Quiz Group 1 <span class="tag" style="margin:0">leaked variant</span></b><span>Midterm Quiz Group1 08.00-10.00 · вопросы и варианты ответов точь-в-точь как в форме (Q3 разбит на 3 строки)</span></button></div>`;
+  app.innerHTML=h;
+}
+function start(t,k){
+  let qs,title;
+  if(t==='full'){qs=rr.slice(k*25,k*25+25);title=`Вариант ${k+1} · весь курс`}
+  else if(t==='mod'){qs=pool[k];title=`Module ${String(k).padStart(2,'0')} · ${MN[k]}`}
+  else if(t==='cp'){qs=CP[k];title=k?'Чекпоинт 11-13':'Чекпоинт 7-10'}
+  else{qs=leaked;title='Midterm Quiz Group 1 — leaked variant'}
+  S={title,qs,a:qs.map(()=>new Set()),l:qs.map(()=>false),leak:t!=='full'&&t!=='mod',tag:t==='leak'};render();scrollTo(0,0);
+}
+function pick(i,j){
+  if(S.l[i])return;const q=S.qs[i],s=S.a[i];
+  if(q.n===1){s.add(j);S.l[i]=true}else{s.has(j)?s.delete(j):s.add(j);if(s.size===q.n)S.l[i]=true}
+  render(true);if(S.l.every(Boolean))scrollTo(0,0);
+}
+function isOk(i){const q=S.qs[i],s=S.a[i];return q.o.every((o,j)=>o.ok===s.has(j))}
+function render(keep){
+  const y=scrollY;const dn=S.l.every(Boolean);const ans=S.l.filter(Boolean).length;const sc=S.qs.filter((_,i)=>S.l[i]&&isOk(i)).length;
+  let h=`<div class="bar"><button class="btn g" onclick="home()">← Назад</button><span><b>${S.title}</b>${S.tag?'<span class="tag">leaked variant</span>':''}</span><span>${ans}/${S.qs.length} · верно ${sc}</span><button class="btn g" onclick="start0()">Заново</button></div>`;
+  if(dn)h+=`<div class="res">Результат: ${sc} / ${S.qs.length} (${Math.round(sc/S.qs.length*100)}%)</div>`;
+  S.qs.forEach((q,i)=>{
+    const lk=S.l[i];const ok=lk&&isOk(i);
+    h+=`<div class="q ${lk?(ok?'ok':'no'):''}"><div class="qt">${S.leak?'':(i+1)+'. '}${q.q}${q.n>1?` <small>(выбери ${q.n})</small>`:''}${!S.leak&&q.mod?` <small>· M${q.mod}</small>`:''}</div>`;
+    q.o.forEach((o,j)=>{
+      let c='o';if(lk){if(o.ok)c+=' r';else if(S.a[i].has(j))c+=' w'}else if(S.a[i].has(j))c+=' s';
+      h+=`<button class="${c}" onclick="pick(${i},${j})">${o.t}</button>`;
+    });
+    if(lk&&q.e)h+=`<div class="ex">💡 ${q.e}</div>`;
+    h+='</div>';
+  });
+  app.innerHTML=h;if(keep)scrollTo(0,y);
+}
+function start0(){S.a=S.qs.map(()=>new Set());S.l=S.qs.map(()=>false);render();scrollTo(0,0)}
+home();
+</script>
+</body>
+</html>
